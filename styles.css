@@ -1,26 +1,23 @@
 body {
-  font-family: Brice SemiExpanded;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   min-height: 100vh;
   background: #f6c754; /* naranja */
-  color: black;       /* texto en negro */
 }
 
 header {
   background: #a91c14;
-  color: black;
+  color: white;
   width: 100%;
   text-align: center;
   padding: 15px;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
 
-  /* Para alinear íconos + texto en fila y centrados */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,9 +25,8 @@ header {
 }
 
 header .icon {
-  width: 58px;   /* ajusta el tamaño del logotipo */
-  height: auto;  /* mantiene proporción */
-  display: block;
+  width: 58px;
+  height: auto;
 }
 
 main {
@@ -40,22 +36,32 @@ main {
 
 img {
   max-width: 90%;
-  border-radius: 0px;
+  border-radius: 5px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-button#upload_widget {
+
+button {
   background: #a91c14;
   color: white;
-  font-size: 1.2em;
-  padding: 12px 20px;
   border: none;
-  border-radius: 12px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
   cursor: pointer;
-  margin-top: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  font-size: 1em;
 }
 
-button#upload_widget:hover {
-  background: #7a120e;
+button:hover {
+  background: #7d140f;
 }
 
+#auth-area {
+  margin: 20px 0;
+}
+
+#auth-area input {
+  margin: 5px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
