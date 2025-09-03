@@ -1,19 +1,24 @@
-const cloudName = "TU_CLOUD_NAME";   // 👈 tu cloud name
-const uploadPreset = "menu_upload";  // 👈 tu upload preset
+// Tu configuración de Cloudinary
+const cloudName = "TU_CLOUD_NAME";   // 👈 reemplaza con tu Cloud Name
+const uploadPreset = "menu_upload";  // 👈 el preset "unsigned"
 
-// Clave secreta (defínela tú)
-const CLAVE_SECRETA = "mmj";
+// Clave secreta
+const CLAVE_SECRETA = "1234";
+
+// Por defecto, el botón de subir está desactivado
+let autorizado = false;
 
 function validarClave() {
   const claveIngresada = document.getElementById("clave").value;
   if (claveIngresada === CLAVE_SECRETA) {
-    document.getElementById("upload_widget").style.display = "inline-block";
-    document.getElementById("login-area").style.display = "none";
+    autorizado = true;
+    alert("✅ Acceso autorizado, ya puedes cambiar el menú");
   } else {
-    alert("Clave incorrecta ❌");
+    alert("❌ Clave incorrecta");
   }
 }
 
+// Configuración del widget
 const myWidget = cloudinary.createUploadWidget({
   cloudName: cloudName,
   uploadPreset: uploadPreset,
@@ -29,7 +34,12 @@ const myWidget = cloudinary.createUploadWidget({
   }
 });
 
+// Abrir widget solo si está autorizado
 document.getElementById("upload_widget").addEventListener("click", () => {
-  myWidget.open();
+  if (autorizado) {
+    myWidget.open();
+  } else {
+    alert("⚠️ Ingresa la clave antes de cambiar el menú");
+  }
 }, false);
 
