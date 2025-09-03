@@ -1,10 +1,12 @@
+
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menú del Día</title>
-  <!-- Vincular el CSS -->
   <link rel="stylesheet" href="styles.css">
+  <!-- Script de Cloudinary -->
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -15,10 +17,13 @@
 </header>
 
 <main>
-  <img id="menu-img" src="plato.png" alt="Menú del día">
+  <!-- Imagen actual del menú -->
+  <img id="menu-img" src="https://res.cloudinary.com/dwpei2qes/image/upload/v1756888688/plato.png_t83rk9.png" alt="Menú del día">
+  
+  <!-- Botón para subir nueva imagen -->
+  <button id="upload_widget">Subir nuevo menú</button>
 </main>
 
-<!-- Vincular el JavaScript -->
 <script src="script.js"></script>
 </body>
 </html>
