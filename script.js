@@ -1,46 +1,102 @@
-// Tu configuración de Cloudinary
-const cloudName = "dwpei2qes";   // 👈 reemplaza con tu Cloud Name
-const uploadPreset = "menu_upload";  // 👈 el preset "unsigned"
+// === IMPORTS de Firebase ===
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-// Clave secreta
-const CLAVE_SECRETA = "1234";
+// ===== CONFIGURA ESTO =====
+const firebaseConfig = {
+  apiKey: "AIzaSyCgd_jzFlrEcUZpEtNRVY8UWt3di5IgI2w",
+  authDomain: "menu-1d72a.firebaseapp.com",
+  projectId: "menu-1d72a",
+  storageBucket: "menu-1d72a.firebasestorage.app",
+  messagingSenderId: "883010052354",
+  appId: "1:883010052354:web:5f341a7d06cf9c86e7221b"
+};
+const cloudName = "dwpei2qes";        // tu Cloudinary cloud name
+const uploadPreset = "menu_upload";       // tu preset unsigned
+// ==========================
 
-// Por defecto, el botón de subir está desactivado
-let autorizado = false;
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-function validarClave() {
-  const claveIngresada = document.getElementById("clave").value;
-  if (claveIngresada === CLAVE_SECRETA) {
-    autorizado = true;
-    alert("✅ Acceso autorizado, ya puedes cambiar el menú");
-  } else {
-    alert("❌ Clave incorrecta");
+// Elementos de la interfaz
+const menuImg = document.getElementById("menu-img");
+const uploadBtn = document.getElementById("upload_widget");
+const emailInput = document.getElementById("email");
+const passInput = document.getElementById("password");
+const btnLogin = document.getElementById("btn-login");
+const btnLogout = document.getElementById("btn-logout");
+
+// Documento en Firestore
+const menuDocRef = doc(db, "menu", "current");
+
+// 🔹 Mostrar la imagen siempre actualizada
+onSnapshot(menuDocRef, (snap) => {
+  if (snap.exists()) {
+    const data = snap.data();
+    if (data.url) {
+      menuImg.src = data.url + "?t=" + new Date().getTime(); // evita caché
+    }
   }
-}
+});
 
-// Configuración del widget
+// 🔹 Login
+btnLogin.addEventListener("click", async () => {
+  try {
+    await signInWithEmailAndPassword(auth, emailInput.value, passInput.value);
+    alert("Sesión iniciada");
+  } catch (e) {
+    alert("Error en login: " + e.message);
+  }
+});
+
+// 🔹 Logout
+btnLogout.addEventListener("click", async () => {
+  await signOut(auth);
+});
+
+// 🔹 Cambios en el estado de sesión
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    btnLogin.style.display = "none";
+    btnLogout.style.display = "inline-block";
+    emailInput.style.display = "none";
+    passInput.style.display = "none";
+  } else {
+    btnLogin.style.display = "inline-block";
+    btnLogout.style.display = "none";
+    emailInput.style.display = "inline-block";
+    passInput.style.display = "inline-block";
+  }
+});
+
+// 🔹 Cloudinary widget
 const myWidget = cloudinary.createUploadWidget({
   cloudName: cloudName,
   uploadPreset: uploadPreset,
   sources: ["local", "camera"],
   multiple: false,
   resourceType: "image",
-  publicId: "plato",
-  overwrite: true
-}, (error, result) => {
+  showPoweredBy: false
+}, async (error, result) => {
   if (!error && result && result.event === "success") {
-    console.log("Menú actualizado: ", result.info.secure_url);
-    document.getElementById("menu-img").src = result.info.secure_url + "?t=" + new Date().getTime();
+    console.log("Upload success:", result.info.secure_url);
+
+    const user = auth.currentUser;
+    if (user) {
+      await setDoc(menuDocRef, { url: result.info.secure_url });
+      alert("Menú actualizado correctamente ✅");
+    } else {
+      alert("Debes iniciar sesión para publicar el menú ❌");
+    }
   }
 });
 
-// Abrir widget solo si está autorizado
-document.getElementById("upload_widget").addEventListener("click", () => {
-  if (autorizado) {
-    myWidget.open();
-  } else {
-    alert("⚠️ Ingresa la clave antes de cambiar el menú");
-  }
-}, false);
+// Abrir el widget
+uploadBtn.addEventListener("click", () => {
+  myWidget.open();
+});
 
 
