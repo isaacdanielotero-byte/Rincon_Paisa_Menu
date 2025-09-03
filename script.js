@@ -1,22 +1,34 @@
-// Inicializar el widget de Cloudinary
-const cloudName = "TU_CLOUD_NAME"; // cambia por el tuyo
-const uploadPreset = "ml_default"; // puedes usar este por defecto
+const cloudName = "TU_CLOUD_NAME";   // 👈 tu cloud name
+const uploadPreset = "menu_upload";  // 👈 tu upload preset
 
-var myWidget = cloudinary.createUploadWidget({
+// Clave secreta (defínela tú)
+const CLAVE_SECRETA = "1234";
+
+function validarClave() {
+  const claveIngresada = document.getElementById("clave").value;
+  if (claveIngresada === CLAVE_SECRETA) {
+    document.getElementById("upload_widget").style.display = "inline-block";
+    document.getElementById("login-area").style.display = "none";
+  } else {
+    alert("Clave incorrecta ❌");
+  }
+}
+
+const myWidget = cloudinary.createUploadWidget({
   cloudName: cloudName,
   uploadPreset: uploadPreset,
-  sources: ["local", "url", "camera"], // desde PC, link o cámara móvil
+  sources: ["local", "camera"],
   multiple: false,
-  folder: "menus", // opcional: carpeta en tu Cloudinary
-  resourceType: "image"
+  resourceType: "image",
+  publicId: "plato",
+  overwrite: true
 }, (error, result) => {
   if (!error && result && result.event === "success") {
-    console.log("Imagen subida con éxito: ", result.info.secure_url);
-    // Cambiar la imagen en la página automáticamente
-    document.getElementById("menu-img").src = result.info.secure_url;
+    console.log("Menú actualizado: ", result.info.secure_url);
+    document.getElementById("menu-img").src = result.info.secure_url + "?t=" + new Date().getTime();
   }
 });
 
-document.getElementById("upload_widget").addEventListener("click", function(){
+document.getElementById("upload_widget").addEventListener("click", () => {
   myWidget.open();
 }, false);
