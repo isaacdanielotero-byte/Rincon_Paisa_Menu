@@ -43,3 +43,19 @@ img {
   border-radius: 0px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
+button#upload_widget {
+  background: #a91c14;
+  color: white;
+  font-size: 1.2em;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+button#upload_widget:hover {
+  background: #7a120e;
+}
+
