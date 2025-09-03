@@ -1,38 +1,38 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menú del Día</title>
+  <title>Rincón Paisa - Menú del Día</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Script de Cloudinary -->
+
+  <!-- Cloudinary widget -->
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 </head>
 <body>
+  <header>
+    <img src="https://i.postimg.cc/SN7kpPDr/logotipo.png" alt="logo" class="icon">
+    Menú del Día
+    <img src="https://i.postimg.cc/SN7kpPDr/logotipo.png" alt="logo" class="icon">
+  </header>
 
-<header>
-  <img src="https://i.postimg.cc/SN7kpPDr/logotipo.png" alt="logotipo" class="icon">
-  Menú del Día
-  <img src="https://i.postimg.cc/SN7kpPDr/logotipo.png" alt="logotipo" class="icon">
-</header>
+  <main>
+    <img id="menu-img" src="plato.png" alt="Menú del día" />
 
-<main>
-  <!-- Imagen del menú (siempre visible) -->
-  <img id="menu-img" 
-       src="https://res.cloudinary.com/TU_CLOUD_NAME/image/upload/plato.png" 
-       alt="Menú del día">
+    <!-- Área de autenticación -->
+    <div id="auth-area">
+      <input id="email" type="email" placeholder="Email administrador">
+      <input id="password" type="password" placeholder="Contraseña">
+      <button id="btn-login">Iniciar sesión</button>
+      <button id="btn-logout" style="display:none">Cerrar sesión</button>
+    </div>
 
-  <!-- Botón para subir -->
-  <button id="upload_widget">📷 Cambiar menú</button>
+    <!-- Botón de subida -->
+    <button id="upload_widget">📷 Subir menú</button>
+  </main>
 
-  <!-- Área para la clave -->
-  <div id="login-area">
-    <input type="password" id="clave" placeholder="Clave de administrador">
-    <button onclick="validarClave()">Ingresar</button>
-  </div>
-</main>
-
-<script src="script.js"></script>
+  <!-- Firebase modular con módulos -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
 
