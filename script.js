@@ -1,5 +1,5 @@
 // Tu configuración de Cloudinary
-const cloudName = "TU_CLOUD_NAME";   // 👈 reemplaza con tu Cloud Name
+const cloudName = "dwpei2qes";   // 👈 reemplaza con tu Cloud Name
 const uploadPreset = "menu_upload";  // 👈 el preset "unsigned"
 
 // Clave secreta
@@ -42,4 +42,5 @@ document.getElementById("upload_widget").addEventListener("click", () => {
     alert("⚠️ Ingresa la clave antes de cambiar el menú");
   }
 }, false);
+
 
