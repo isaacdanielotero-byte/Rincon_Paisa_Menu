@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menú del Día</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Script de Cloudinary -->
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 </head>
 <body>
@@ -17,17 +16,24 @@
 </header>
 
 <main>
-  <!-- Imagen actual del menú -->
-  <img id="menu-img" src="https://res.cloudinary.com/dwpei2qes/image/upload/v1756888688/plato.png_t83rk9.png" alt="Menú del día">
-  
-  <!-- Botón para subir nueva imagen -->
-  <button id="upload_widget">Subir nuevo menú</button>
+  <!-- Imagen del menú -->
+  <img id="menu-img" 
+       src="https://res.cloudinary.com/TU_CLOUD_NAME/image/upload/plato.png" 
+       alt="Menú del día">
+
+  <!-- Formulario de clave -->
+  <div id="login-area">
+    <input type="password" id="clave" placeholder="Clave de administrador">
+    <button onclick="validarClave()">Ingresar</button>
+  </div>
+
+  <!-- Botón oculto para subir -->
+  <button id="upload_widget" style="display:none;">📷 Subir menú</button>
 </main>
 
 <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
