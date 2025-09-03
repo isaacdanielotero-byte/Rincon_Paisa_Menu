@@ -12,91 +12,12 @@ body {
 }
 
 header {
-  background: #ff6b81;
-  color: white;
-  width: 100%;
-  text-align: center;
-  padding: 15px;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-main {
-  margin: 20px;
-  text-align: center;
-}
-
-img {
-  max-width: 90%;
-  border-radius: 0px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Botón flotante para administrador */
-.admin-btn {
-    padding-left: 14.5px; /* mueve la tuerca hacia la derecha */
-  padding-top: 8.5px;   /* mueve la tuerca hacia abajo */
-  position: fixed; 
-  bottom: 20px;
-  right: 20px;
-  background: #6f2e12;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 1.5em;
-  cursor: pointer; 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-/* Ventana modal */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  max-width: 300px;
-}
-
-input[type="password"], input[type="file"] {
-  margin: 10px 0;
-  padding: 8px;
-  width: 95%;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-}
-
-button {
-  background: #a91c14;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #a91c14; /* segundo color boton */
-}
-
-header {
   background: #a91c14;
   color: black;
   width: 100%;
   text-align: center;
   padding: 15px;
-  font-size: 2.5em;
+  font-size: 1.5em;
   font-weight: bold;
 
   /* Para alinear íconos + texto en fila y centrados */
@@ -110,4 +31,15 @@ header .icon {
   width: 58px;   /* ajusta el tamaño del logotipo */
   height: auto;  /* mantiene proporción */
   display: block;
+}
+
+main {
+  margin: 20px;
+  text-align: center;
+}
+
+img {
+  max-width: 90%;
+  border-radius: 0px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
