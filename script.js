@@ -2,7 +2,7 @@ const cloudName = "TU_CLOUD_NAME";   // 👈 tu cloud name
 const uploadPreset = "menu_upload";  // 👈 tu upload preset
 
 // Clave secreta (defínela tú)
-const CLAVE_SECRETA = "1234";
+const CLAVE_SECRETA = "mmj";
 
 function validarClave() {
   const claveIngresada = document.getElementById("clave").value;
@@ -32,3 +32,4 @@ const myWidget = cloudinary.createUploadWidget({
 document.getElementById("upload_widget").addEventListener("click", () => {
   myWidget.open();
 }, false);
+
