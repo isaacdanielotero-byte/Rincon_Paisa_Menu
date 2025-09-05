@@ -23,9 +23,6 @@ const auth = getAuth(app);
 
 // Elementos UI
 const menuImg = document.getElementById("menu-img");
-const uploadBtn = document.getElementById("upload_widget");
-
-// Menú y modal
 const menuBtn = document.getElementById("menu-btn");
 const menuOptions = document.getElementById("menu-options");
 const loginModal = document.getElementById("login-modal");
@@ -33,8 +30,8 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const errorMsg = document.getElementById("errorMsg");
 const loginBtn = document.getElementById("btn-login");
-const togglePassword = document.getElementById("toggle-password");
 const cancelLoginBtn = document.getElementById("btn-cancel");
+const togglePassword = document.getElementById("toggle-password");
 
 // Documento en Firestore
 const menuDocRef = doc(db, "menu", "current");
@@ -64,7 +61,7 @@ function closeLoginModal() {
   togglePassword.textContent = "👁️";
 }
 
-// === Cancelar: si ambos campos vacíos -> volver al inicio ===
+// === Cancelar ===
 cancelLoginBtn.addEventListener("click", () => {
   const emailEmpty = emailInput.value.trim() === "";
   const passEmpty = passwordInput.value.trim() === "";
@@ -87,7 +84,7 @@ togglePassword.onclick = () => {
   }
 };
 
-// === Login Firebase con validaciones ===
+// === Login Firebase ===
 loginBtn.onclick = async () => {
   try {
     await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
@@ -108,11 +105,11 @@ loginBtn.onclick = async () => {
 // === Estado de sesión ===
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    // Usuario logueado
     menuOptions.innerHTML = `
-      <button id="uploadOption">Subir foto</button>
+      <button id="uploadOption">Subir menú</button>
       <button id="logoutOption">Cerrar sesión</button>
     `;
-    uploadBtn.style.display = "inline-block";
 
     document.getElementById("uploadOption").onclick = () => {
       myWidget.open();
@@ -121,45 +118,38 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("logoutOption").onclick = async () => {
       await signOut(auth);
       alert("Sesión cerrada");
-      menuOptions.innerHTML = `<button id="login-option">Iniciar sesión</button>`;
+      menuOptions.innerHTML = '<button id="login-option">Iniciar sesión</button>';
       document.getElementById("login-option").onclick = () => {
         loginModal.style.display = "flex";
       };
-      uploadBtn.style.display = "none";
     };
+
   } else {
-    menuOptions.innerHTML = `<button id="login-option">Iniciar sesión</button>`;
+    // Usuario no logueado
+    menuOptions.innerHTML = '<button id="login-option">Iniciar sesión</button>';
     document.getElementById("login-option").onclick = () => {
       loginModal.style.display = "flex";
     };
-    uploadBtn.style.display = "none";
   }
 });
 
 // === Cloudinary widget ===
-const myWidget = cloudinary.createUploadWidget(
-  {
-    cloudName: cloudName,
-    uploadPreset: uploadPreset,
-    sources: ["local", "camera"],
-    multiple: false,
-    resourceType: "image",
-    showPoweredBy: false
-  },
-  async (error, result) => {
-    if (!error && result && result.event === "success") {
-      console.log("Upload success:", result.info.secure_url);
-      const user = auth.currentUser;
-      if (user) {
-        await setDoc(menuDocRef, { url: result.info.secure_url });
-        alert("Menú actualizado correctamente ✅");
-      } else {
-        alert("Debes iniciar sesión para publicar el menú ❌");
-      }
+const myWidget = cloudinary.createUploadWidget({
+  cloudName: cloudName,
+  uploadPreset: uploadPreset,
+  sources: ["local", "camera"],
+  multiple: false,
+  resourceType: "image",
+  showPoweredBy: false
+}, async (error, result) => {
+  if (!error && result && result.event === "success") {
+    console.log("Upload success:", result.info.secure_url);
+    const user = auth.currentUser;
+    if (user) {
+      await setDoc(menuDocRef, { url: result.info.secure_url });
+      alert("Menú actualizado correctamente ✅");
+    } else {
+      alert("Debes iniciar sesión para publicar el menú ❌");
     }
   }
-);
-
-
-
-
+});
